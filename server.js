@@ -9,7 +9,7 @@ let browser;
 async function getBrowser() {
   if (!browser || !browser.isConnected()) {
     browser = await puppeteer.launch({
-      executablePath: process.env.CHROMIUM_PATH || '/usr/bin/chromium-browser',
+      executablePath: '/usr/bin/chromium-browser',
       args: [
         '--no-sandbox',
         '--disable-setuid-sandbox',
@@ -39,12 +39,12 @@ app.get('/*', async (req, res) => {
     res.set('Content-Type', 'text/html; charset=utf-8');
     res.send(html);
   } catch (err) {
-    console.error('Error:', err.message);
-    res.status(500).send('Error rendering page');
+    console.error('Error rendering', url, ':', err.message);
+    res.status(500).send('Error: ' + err.message);
   }
 });
 
 app.listen(PORT, () => {
   console.log('Prerender server running on port', PORT);
+  getBrowser().then(() => console.log('Chrome launched OK')).catch(e => console.error('Chrome FAILED:', e.message));
 });
-
