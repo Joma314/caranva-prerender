@@ -1,7 +1,8 @@
 FROM zenika/alpine-chrome:with-node
 
 WORKDIR /app
-RUN npm install prerender
+COPY package.json .
+RUN npm install
 COPY server.js .
 
 EXPOSE 10000
