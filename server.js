@@ -9,7 +9,7 @@ let browser;
 async function getBrowser() {
   if (!browser || !browser.isConnected()) {
     browser = await puppeteer.launch({
-      executablePath: '/usr/bin/chromium-browser',
+      executablePath: process.env.CHROMIUM_PATH || '/usr/bin/chromium-browser',
       args: [
         '--no-sandbox',
         '--disable-setuid-sandbox',
@@ -47,3 +47,4 @@ app.get('/*', async (req, res) => {
 app.listen(PORT, () => {
   console.log('Prerender server running on port', PORT);
 });
+
