@@ -1,7 +1,7 @@
 const prerender = require('prerender');
 
 const server = prerender({
-  chromeLocation: '/usr/bin/chromium',
+  chromeLocation: '/usr/bin/chromium-browser',
   chromeFlags: [
     '--no-sandbox',
     '--disable-setuid-sandbox',
